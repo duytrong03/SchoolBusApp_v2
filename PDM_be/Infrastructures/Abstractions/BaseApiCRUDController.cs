@@ -9,7 +9,7 @@ namespace PDM_be.Infrastructure.Abstractions
 {
     [ApiController]
     public abstract class BaseApiCRUDController<TSession, TEntity, TPk> : ControllerBase
-        where TSession : class, ISession where TEntity : class, new() where TPk : IComparable
+        where TSession : class, IDbSession where TEntity : class, new() where TPk : IComparable
     {
         protected readonly IDbFactory DbFactory;
         protected readonly IRepository<TEntity, TPk> Repository;

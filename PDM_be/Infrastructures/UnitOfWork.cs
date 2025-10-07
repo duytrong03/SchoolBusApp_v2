@@ -34,6 +34,7 @@ namespace PDM_be.Infrastructure
         public void Dispose()
         {
             Transaction?.Dispose();
+            Connection?.Dispose();
         }
     }
 

@@ -28,8 +28,8 @@ namespace PDM_be.Repositories.Implementations
             var conn = uow.Connection;
             var tx = uow.Transaction;
 
-            var keyProp = typeof(TEntity).GetProperty("Id")
-                  ?? throw new InvalidOperationException("Entity must have Id property");
+            var keyProp = typeof(TEntity).GetProperty("id")
+                  ?? throw new InvalidOperationException("Entity must have id property");
 
             var keyValue = keyProp.GetValue(entity);
 
@@ -56,8 +56,8 @@ namespace PDM_be.Repositories.Implementations
 
             // Tạo instance entity và gán giá trị primary key
             var entity = Activator.CreateInstance<TEntity>();
-            var keyProp = typeof(TEntity).GetProperty("Id")
-                        ?? throw new InvalidOperationException("Entity must have Id property");
+            var keyProp = typeof(TEntity).GetProperty("id")
+                        ?? throw new InvalidOperationException("Entity must have id property");
             keyProp.SetValue(entity, id);
             // Dùng session.Connection để Get entity
             return await session.Connection.GetAsync(entity);
