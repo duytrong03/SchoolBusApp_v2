@@ -24,9 +24,16 @@ builder.Services.AddScoped<IDbFactory, DbFactory>();
 // builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
-// builder.Services.AddScoped<ITuyenxeRepository, TuyenxeRepository>();
+builder.Services.AddScoped<ITuyenXeRepository, TuyenXeRepository>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+.AddJsonOptions(opt =>
+    {
+        // Bỏ qua vòng lặp tuần hoàn khi serialize
+        opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        // (tùy chọn) Cho JSON dễ đọc hơn
+        opt.JsonSerializerOptions.WriteIndented = true;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(options =>
 {

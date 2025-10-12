@@ -11,22 +11,10 @@ using PDM_be.Models.Public;
 
 namespace PDM_be.Controllers.Public
 {
-    [ApiController]
-    [Authorize(Roles = RoleEnum.PHUHUYNH)]
-    [Route("api/phu-huynh")]
-    public class GanHocsinhController : ControllerBase
+    public partial class PublicApiController
     {
-        private readonly IDbFactory _dbFactory;
-        public GanHocsinhController(IDbFactory dbFactory)
-        {
-            _dbFactory = dbFactory;
-        }
-        protected IDbSession OpenSession()
-        {
-            return _dbFactory.Create<DbSession>();
-        }
-
         [HttpPost("gan-hocsinh")]
+        [Authorize(Roles = RoleEnum.PHUHUYNH)]
         public async Task<IActionResult> GanHocsinhAsync([FromForm] string studentCode)
         {
             var tableName = "public." + Sql.Entity<PhuhuynhHocsinh>();
