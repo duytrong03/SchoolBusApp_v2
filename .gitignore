@@ -1,35 +1,101 @@
-# Build folders
+# -----------------------------
+# .NET build & config
+# -----------------------------
 bin/
 obj/
-
-# Visual Studio
 .vs/
 *.user
 *.suo
 *.cache
 *.log
-
-# NuGet
 *.nupkg
 packages/
-project.lock.json
-project.fragment.lock.json
-
-# Rider
-.idea/
-
-# Publish output
 publish/
-
-# App settings nhạy cảm
-appsettings.json
-appsettings.Development.json
-
-# Test results
 TestResults/
 *.trx
-
-# Others
 *.db
 *.sqlite
 *.pdb
+
+# App settings (sensitive)
+appsettings*.json
+
+# -----------------------------
+# Flutter & Dart
+# -----------------------------
+.dart_tool/
+.packages
+build/
+.flutter-plugins*
+pubspec.lock
+coverage/
+generated_plugin_registrant.dart
+
+# -----------------------------
+# IDE settings
+# -----------------------------
+.idea/
+*.iml
+.gradle/
+local.properties
+.vscode/
+
+# -----------------------------
+# Android
+# -----------------------------
+**/android/.gradle/
+**/android/app/release/
+**/android/app/debug/
+**/android/key.properties
+**/android/app/google-services.json
+**/android/app/upload-keystore.jks
+
+# -----------------------------
+# iOS
+# -----------------------------
+**/ios/Pods/
+**/ios/build/
+**/ios/.symlinks/
+**/ios/Flutter/
+**/ios/Runner.xcworkspace/
+**/ios/Runner.xcodeproj/xcuserdata/
+**/ios/Podfile.lock
+
+# -----------------------------
+# Web
+# -----------------------------
+**/web/build/
+
+# -----------------------------
+# Desktop (Windows/macOS/Linux)
+# -----------------------------
+**/windows/build/
+**/windows/Flutter/ephemeral/
+**/macos/build/
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+**/linux/build/
+**/linux/Flutter/ephemeral/
+
+# -----------------------------
+# Keys & Environment
+# -----------------------------
+.env
+*.pem
+*.p12
+*.keystore
+*.jks
+*.key
+*.crt
+*.cer
+
+# -----------------------------
+# Logs / Cache / System files
+# -----------------------------
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
