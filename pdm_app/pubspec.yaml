@@ -38,6 +38,10 @@ dependencies:
   dio: ^5.9.0
   http: ^1.5.0
   shared_preferences: ^2.5.3
+  google_fonts: ^6.3.2
+  flutter_animate: ^4.5.2
+  flutter_native_splash: ^2.4.7
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +64,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - .env
+    - assets/images/logo_app.png
+    - assets/images/background_app.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -91,3 +99,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  background_image: assets/images/background_app.jpg
+  image: assets/images/logo_app.png
+
+  android_12:
+    image: assets/images/logo_app.png
+    background_image: assets/images/background_app.jpg
