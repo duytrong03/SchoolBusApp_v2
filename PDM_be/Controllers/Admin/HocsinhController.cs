@@ -14,6 +14,7 @@ namespace PDM_be.Controllers
 {
     [ApiController]
     [Route("api/hoc-sinh")]
+    [Authorize(Roles = RoleEnum.ADMIN)]
     public class HocsinhController : BaseApiCRUDController<DbSession,Hocsinh, int>
     {
         private readonly IDbFactory _dbFactory;

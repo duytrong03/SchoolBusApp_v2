@@ -14,6 +14,7 @@ namespace PDM_be.Controllers
 {
     [ApiController]
     [Route("api/lop")]
+    [Authorize(Roles = RoleEnum.ADMIN)]
     public class LopController : BaseApiCRUDController<DbSession,Lop, int>
     {
         public LopController(IDbFactory dbFactory, IRepository<Lop, int> repository)

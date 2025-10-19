@@ -14,6 +14,7 @@ namespace PDM_be.Controllers
 {
     [ApiController]
     [Route("api/tai-xe")]
+    [Authorize(Roles = RoleEnum.ADMIN)]
     public class TaixeController : BaseApiCRUDController<DbSession,Taixe, int>
     {
         public TaixeController(IDbFactory dbFactory, IRepository<Taixe, int> repository)
