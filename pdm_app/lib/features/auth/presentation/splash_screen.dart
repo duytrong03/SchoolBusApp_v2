@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    print('🔥 Flutter SplashScreen started');
+    print('Flutter SplashScreen started');
 
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
