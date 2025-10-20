@@ -42,6 +42,7 @@ dependencies:
   flutter_animate: ^4.5.2
   flutter_native_splash: ^2.4.7
   flutter_launcher_icons: ^0.14.4
+  device_info_plus: ^12.1.0
 
 dev_dependencies:
   flutter_test:
