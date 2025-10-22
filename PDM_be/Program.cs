@@ -25,7 +25,7 @@ builder.Services.AddScoped<IDbFactory, DbFactory>();
 
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 builder.Services.AddScoped<ITuyenXeRepository, TuyenXeRepository>();
-
+builder.Services.AddScoped<ILopRepository, LopRepository>();
 builder.Services.AddControllers()
 .AddJsonOptions(opt =>
     {

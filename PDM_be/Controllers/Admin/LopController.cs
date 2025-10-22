@@ -9,6 +9,7 @@ using PDM_be.Infrastructure.Abstractions;
 using PDM_be.Infrastructure.DTO.Response;
 using PDM_be.Infrastructure.Interfaces;
 using PDM_be.Models.Public;
+using PDM_be.Repositories;
 using PDM_be.Repositories.Interfaces;
 using PDM_be.ViewModels.DTO;
 
@@ -19,13 +20,15 @@ namespace PDM_be.Controllers
     [Authorize(Roles = RoleEnum.ADMIN)]
     public class LopController : BaseApiCRUDController<DbSession,Lop, int>
     {
-        public LopController(IDbFactory dbFactory, IRepository<Lop, int> repository)
+        private readonly ILopRepository _repository;
+        public LopController(IDbFactory dbFactory, ILopRepository repository)
         : base(dbFactory, repository)
         {
+            _repository = repository;
         }
-        
+
         [HttpPost("datatable")]
-        public async Task<IActionResult> DatatableAsync([FromBody] TableParameters dataTb)
+        public async Task<IActionResult> DatatableAsync([FromBody] LopParams dataTb)
         {
             using var session = OpenSession();
             string condition = $"(1=1)";
@@ -40,6 +43,10 @@ namespace PDM_be.Controllers
             if (dataTb != null && dataTb.search != null && string.IsNullOrEmpty(dataTb.search?.value) == false)
             {
                 condition += $" AND ({tableAlias}.\"search_content\" @@ to_tsquery(@keyword))";
+            }
+            if (dataTb?.khoi != null)
+            {
+                condition += $" AND ({tableAlias}.{nameof(Lop.khoi)} = @khoi)";
             }
 
             if (dataTb != null && dataTb.orders != null && dataTb.orders.Count() > 0)
@@ -61,13 +68,13 @@ namespace PDM_be.Controllers
 
             var withParams = new
             {
-                keyword = dataTb?.search?.value
+                keyword = dataTb?.search?.value,
+                dataTb?.khoi
             };
 
             if (dataTb?.length == -1)
             {
                 data = (await session.Connection.FindAsync<Lop>(stm => stm
-                    .Include<Lop>(x => x.LeftOuterJoin())
                     .WithAlias(tableAlias)
                     .Where($"{condition}")
                     .WithParameters(withParams)
@@ -81,7 +88,6 @@ namespace PDM_be.Controllers
             else
             {
                 data = (await session.Connection.FindAsync<Lop>(stm => stm
-                    .Include<Lop>(x => x.LeftOuterJoin())
                     .WithAlias(tableAlias)
                     .Where($"{condition}")
                     .WithParameters(withParams)
@@ -103,5 +109,6 @@ namespace PDM_be.Controllers
                 draw = dataTb?.draw ?? 1
             });
         }
+        
     }
 }

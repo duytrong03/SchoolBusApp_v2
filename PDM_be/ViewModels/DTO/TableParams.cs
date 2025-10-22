@@ -31,4 +31,8 @@ namespace PDM_be.ViewModels.DTO
         /// </summary>
         public string order { get; set; } = string.Empty;
     }
+    public class LopParams : TableParameters
+    {
+        public string? khoi { get; set; }
+    }
 }

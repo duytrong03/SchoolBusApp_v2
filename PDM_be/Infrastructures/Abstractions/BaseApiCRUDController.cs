@@ -64,6 +64,7 @@ namespace PDM_be.Infrastructure.Abstractions
             using var session = OpenSession();
             using var uow = new UnitOfWork(session.Connection, session.SqlDialect, IsolationLevel.RepeatableRead);
             var key = await Repository.SaveOrUpdateAsync(entity, uow);
+            uow.Commit();
             return Ok(new { data = key });
         }
 
@@ -76,6 +77,7 @@ namespace PDM_be.Infrastructure.Abstractions
             if (await Repository.GetAsync(entity, session) == null)
                 return NotFound("Không tìm thấy bản ghi.");
             await Repository.SaveOrUpdateAsync(entity, uow);
+            uow.Commit();
             return Ok(new {message ="Cập nhật dữ liệu thành công."});
         }
 
@@ -90,6 +92,7 @@ namespace PDM_be.Infrastructure.Abstractions
                 return NotFound("không tìm thấy bản ghi.");
 
             bool result = await Repository.DeleteAsync(entity, uow);
+            uow.Commit();
             return Ok(new { message = "Xóa dữ liệu thành công." });
         }
     }

@@ -20,6 +20,6 @@ namespace PDM_be.Models.Public
         [StringLength(256)]
         public string? ghi_chu { get; set; }
 
-        // public virtual IEnumerable<Hocsinh>? listHocSinh { get; set; }
+        public virtual IEnumerable<Hocsinh>? listHocSinh { get; set; }
     }
 }
