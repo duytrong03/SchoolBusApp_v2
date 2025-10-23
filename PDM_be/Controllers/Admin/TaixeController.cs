@@ -67,7 +67,6 @@ namespace PDM_be.Controllers
             if (dataTb?.length == -1)
             {
                 data = (await session.Connection.FindAsync<Taixe>(stm => stm
-                    .Include<Lop>(x => x.LeftOuterJoin())
                     .WithAlias(tableAlias)
                     .Where($"{condition}")
                     .WithParameters(withParams)
@@ -81,7 +80,6 @@ namespace PDM_be.Controllers
             else
             {
                 data = (await session.Connection.FindAsync<Taixe>(stm => stm
-                    .Include<Lop>(x => x.LeftOuterJoin())
                     .WithAlias(tableAlias)
                     .Where($"{condition}")
                     .WithParameters(withParams)

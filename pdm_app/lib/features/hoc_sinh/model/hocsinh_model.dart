@@ -20,27 +20,36 @@ class HocSinh {
   });
 
   factory HocSinh.fromJson(Map<String, dynamic> json) {
+    final lopData = json['lop'];
+
+    Lop? lopObj;
+    if (lopData is Map<String, dynamic>) {
+      lopObj = Lop.fromJson(lopData);
+    } else {
+      lopObj = null; // an toàn nếu API không trả object
+    }
+
     return HocSinh(
-      id: json['id'] as int?,
+      id: json['id'] is int ? json['id'] : int.tryParse('${json['id']}'),
       hoTen: json['ho_ten'] ?? '',
       ngaySinh: json['ngay_sinh'],
       lopId: json['lop_id'] ?? 0,
-      lop: json['lop'] != null ? Lop.fromJson(json['lop']) : null,
+      lop: lopObj,
       ghiChu: json['ghi_chu'],
       maHocSinh: json['ma_hocsinh'] ?? '',
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
+  Map<String, dynamic> toJson({bool forUpdate = false}) {
+    final map = {
       'ho_ten': hoTen,
       'ngay_sinh': ngaySinh,
       'lop_id': lopId,
-      'lop': lop?.toJson(),
       'ghi_chu': ghiChu,
       'ma_hocsinh': maHocSinh,
     };
+    if (forUpdate && id != null) map['id'] = id; // chỉ gửi id khi update
+    return map;
   }
 
   HocSinh copyWith({
@@ -60,6 +69,6 @@ class HocSinh {
       lop: lop ?? this.lop,
       ghiChu: ghiChu ?? this.ghiChu,
       maHocSinh: maHocSinh ?? this.maHocSinh,
-    );
+    );  
   }
 }

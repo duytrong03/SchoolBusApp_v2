@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pdm_app/features/auth/data/auth_service.dart';
 import 'package:pdm_app/features/auth/presentation/login_screen.dart';
+import 'package:pdm_app/features/hoc_sinh/presentation/hocsinh_management_screen.dart';
 import 'package:pdm_app/features/lop/presentation/lop_management_screen.dart';
 
 class HomeAdminScreen extends StatelessWidget {
@@ -24,7 +25,14 @@ class HomeAdminScreen extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (_) => const LopManagementScreen()),
       );
-    } else {
+    } 
+    else if (feature == 'Quản lý học sinh') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const HocSinhManagementScreen()),
+      );
+    }
+    else {
       // Tạm thời show SnackBar cho các tính năng khác
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Đi tới: $feature')),
