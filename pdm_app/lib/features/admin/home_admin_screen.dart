@@ -5,6 +5,7 @@ import 'package:pdm_app/features/auth/data/auth_service.dart';
 import 'package:pdm_app/features/auth/presentation/login_screen.dart';
 import 'package:pdm_app/features/hoc_sinh/presentation/hocsinh_management_screen.dart';
 import 'package:pdm_app/features/lop/presentation/lop_management_screen.dart';
+import 'package:pdm_app/features/taixe/presentation/taixe_management_screen.dart';
 
 class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
@@ -30,6 +31,12 @@ class HomeAdminScreen extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const HocSinhManagementScreen()),
+      );
+    }
+    else if (feature == 'Quản lý tài xế') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const TaixeListScreen()),
       );
     }
     else {

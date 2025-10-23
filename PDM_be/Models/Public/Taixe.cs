@@ -8,6 +8,7 @@ namespace PDM_be.Models.Public
     {
         [Key]
         public int id { get; set; }
+        [Required]
         [StringLength(50)]
         public string ho_ten { get; set; } = string.Empty;
         [StringLength(20)]
