@@ -3,9 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pdm_app/features/auth/data/auth_service.dart';
 import 'package:pdm_app/features/auth/presentation/login_screen.dart';
+import 'package:pdm_app/features/ban_do/presentation/map_screen.dart';
 import 'package:pdm_app/features/hoc_sinh/presentation/hocsinh_management_screen.dart';
 import 'package:pdm_app/features/lop/presentation/lop_management_screen.dart';
-import 'package:pdm_app/features/taixe/presentation/taixe_management_screen.dart';
 
 class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
@@ -33,10 +33,10 @@ class HomeAdminScreen extends StatelessWidget {
         MaterialPageRoute(builder: (_) => const HocSinhManagementScreen()),
       );
     }
-    else if (feature == 'Quản lý tài xế') {
+    else if (feature == 'Quản lý bản đồ') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const TaixeListScreen()),
+        MaterialPageRoute(builder: (_) => const MapScreen()),
       );
     }
     else {
@@ -54,6 +54,7 @@ class HomeAdminScreen extends StatelessWidget {
       {'title': 'Quản lý học sinh', 'icon': Icons.school},
       {'title': 'Quản lý tài xế', 'icon': Icons.directions_bus},
       {'title': 'Quản lý tài khoản', 'icon': Icons.manage_accounts},
+      {'title': 'Quản lý bản đồ', 'icon': Icons.map}
     ];
 
     return Scaffold(
