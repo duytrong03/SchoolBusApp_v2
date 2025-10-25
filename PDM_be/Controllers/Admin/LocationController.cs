@@ -12,6 +12,7 @@ namespace PDM_be.Controllers.Admin
 {
     [ApiController]
     [Authorize(Roles = RoleEnum.ADMIN)]
+    [Route("api/map")]
     public class LocationController : ControllerBase
     {
         private readonly IDbFactory _dbFactory;

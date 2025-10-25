@@ -23,5 +23,6 @@ namespace PDM_be.Models.Public
         public string? ghi_chu { get; set; }
         [Required(ErrorMessage = "Mã học sinh không được để trống.")]
         public string ma_hocsinh { get; set; } = string.Empty; 
+        public string? dia_chi { get; set; }
     }
 }

@@ -17,15 +17,15 @@ namespace PDM_be.Controllers.Admin
     [ApiController]
     [Authorize(Roles = RoleEnum.ADMIN)]
     [Route("api/admin")]
-    public class AdminController : ControllerBase
+    public partial class AdminController : ControllerBase
     {
         private readonly IDbFactory _dbFactory;
-        private readonly IUnitOfWork _uow;
+        // private readonly IUnitOfWork _uow;
 
-        public AdminController(IDbFactory dbFactory, IUnitOfWork uow)
+        public AdminController(IDbFactory dbFactory)
         {
             _dbFactory = dbFactory;
-            _uow = uow;
+            // _uow = uow;
         }
         protected IDbSession OpenSession()
         {
@@ -40,7 +40,8 @@ namespace PDM_be.Controllers.Admin
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            using var session = OpenSession();
+            using var session = OpenSession();  
+            using var uow = _dbFactory.Create<UnitOfWork, DbSession>();
             try
             {
                 var exists = await session.Connection.CountAsync<TaiKhoan>(stm => stm
@@ -78,7 +79,7 @@ namespace PDM_be.Controllers.Admin
                     so_dienthoai = input.so_dienthoai,
                     bang_lai = input.bang_lai
                 });
-                _uow.Commit();
+                uow.Commit();
                 return Ok(new
                 {
                     userId = taiKhoanId,
@@ -88,7 +89,7 @@ namespace PDM_be.Controllers.Admin
             }
             catch
             {
-                _uow.Rollback();
+                uow.Rollback();
                 throw;
             }
         }
@@ -122,7 +123,7 @@ namespace PDM_be.Controllers.Admin
                    VALUES (@phuHuynhId, @hocSinhId)",
                 new { phuHuynhId = phuHuynhExist.id, hocSinhId = hocSinhExitst.id }
             );
-            
+
             return Ok(new { message = "Gán học sinh thành công.", hocSinhExitst });
         }
     }
