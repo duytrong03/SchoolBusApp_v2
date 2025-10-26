@@ -32,6 +32,8 @@ namespace PDM_be.Repositories
                 new TuyenXe { id = id },
                 stm => stm
                     .Include<DiemDon>(x => x.LeftOuterJoin())
+                    .Include<Taixe>(x => x.LeftOuterJoin())
+                    .Include<Xe>(x => x.LeftOuterJoin())
             );
             return entity;
         }

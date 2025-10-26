@@ -24,7 +24,7 @@ namespace PDM_be.Controllers
         {
         }
         [HttpPost("datatable")]
-        public async Task<IActionResult> DatatableAsync([FromBody] TableParameters dataTb)
+        public async Task<IActionResult> DatatableAsync([FromBody] XeLichsuParams dataTb)
         {
             using var session = OpenSession();
             string condition = $"(1=1)";
@@ -39,6 +39,10 @@ namespace PDM_be.Controllers
             if (dataTb != null && dataTb.search != null && string.IsNullOrEmpty(dataTb.search?.value) == false)
             {
                 condition += $" AND ({tableAlias}.\"search_content\" @@ to_tsquery(@keyword))";
+            }
+            if (dataTb?.xe_id != null)
+            {
+                condition += $" AND ({tableAlias}.{nameof(XeLichsu.xe_id)} = @xe_id";
             }
 
             if (dataTb != null && dataTb.orders != null && dataTb.orders.Count() > 0)
@@ -60,7 +64,8 @@ namespace PDM_be.Controllers
 
             var withParams = new
             {
-                keyword = dataTb?.search?.value
+                keyword = dataTb?.search?.value,
+                dataTb?.xe_id
             };
 
             if (dataTb?.length == -1)

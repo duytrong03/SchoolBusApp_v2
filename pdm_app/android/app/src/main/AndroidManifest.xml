@@ -1,8 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pdm_app">
+    <!-- Quyền truy cập mạng -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Quyền vị trí -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Nếu muốn theo dõi vị trí khi app ở nền (tùy chọn, chỉ cần nếu tracking xe) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Để truy cập thông tin Wi-Fi/GPS (một số máy yêu cầu thêm) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:label="pdm_app"
         android:name="${applicationName}"

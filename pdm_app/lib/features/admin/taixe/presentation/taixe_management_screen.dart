@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pdm_app/features/taixe/data/taixe_service.dart';
-import 'package:pdm_app/features/taixe/model/taixe_model.dart';
-import 'package:pdm_app/features/taixe/presentation/create_driver_account_screen.dart';
-import 'package:pdm_app/features/taixe/presentation/taixe_detail_dialog.dart';
+import 'package:pdm_app/features/admin/taixe/data/taixe_service.dart';
+import 'package:pdm_app/features/admin/taixe/model/taixe_model.dart';
+import 'package:pdm_app/features/admin/taixe/presentation/create_driver_account_screen.dart';
+import 'package:pdm_app/features/admin/taixe/presentation/taixe_detail_dialog.dart';
 
 class TaixeListScreen extends StatefulWidget {
   const TaixeListScreen({super.key});

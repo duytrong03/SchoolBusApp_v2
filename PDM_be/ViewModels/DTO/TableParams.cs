@@ -35,4 +35,8 @@ namespace PDM_be.ViewModels.DTO
     {
         public string? khoi { get; set; }
     }
+    public class XeLichsuParams : TableParameters
+    {
+        public int xe_id { get; set; }
+    }
 }

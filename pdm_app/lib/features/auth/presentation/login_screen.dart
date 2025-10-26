@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pdm_app/features/auth/data/auth_service.dart';
 import 'package:pdm_app/features/auth/presentation/role_gate.dart';
-import '../data/auth_service.dart';
 import '../../../core/utils/storage_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,7 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (ok) {
       final token = await StorageService.getToken();
-      debugPrint('Token: $token');
+      final role = await StorageService.getRole();
+      debugPrint('Token: $token, Role: $role');
+
       if (context.mounted) {
         Navigator.pushReplacement(
           context,
@@ -45,19 +47,17 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          //Background image
+          // Background
           Image.asset(
             'assets/images/background_app.jpg',
             fit: BoxFit.cover,
           ),
-
-          // Hiệu ứng mờ nền
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: Container(color: Colors.black.withValues(alpha: 0.2)),
           ),
 
-          //Nội dung đăng nhập
+          // Nội dung đăng nhập
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
@@ -69,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       .fade(duration: 600.ms)
                       .scale(),
                   const SizedBox(height: 20),
-
                   Text(
                     'Chào mừng trở lại!',
                     style: GoogleFonts.poppins(
@@ -78,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                     ),
                   ).animate().fade(duration: 600.ms).slideY(begin: 0.3, end: 0),
-
                   const SizedBox(height: 8),
                   Text(
                     'Đăng nhập để tiếp tục',
@@ -87,10 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white70,
                     ),
                   ).animate().fade(duration: 700.ms).slideY(begin: 0.4, end: 0),
-
                   const SizedBox(height: 40),
-
-                  //Input tài khoản
                   TextField(
                     controller: usernameCtrl,
                     style: const TextStyle(color: Colors.white),
@@ -98,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       labelText: 'Tài khoản',
                       labelStyle: GoogleFonts.poppins(color: Colors.white70),
                       filled: true,
-                      fillColor: Colors.white.withOpacity(0.1),
+                      fillColor: Colors.white.withValues(alpha: 0.1),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide:
@@ -106,10 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ).animate().fade(duration: 800.ms).slideY(begin: 0.5, end: 0),
-
                   const SizedBox(height: 20),
-
-                  //Input mật khẩu
                   TextField(
                     controller: passwordCtrl,
                     obscureText: true,
@@ -126,10 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ).animate().fade(duration: 900.ms).slideY(begin: 0.6, end: 0),
-
                   const SizedBox(height: 30),
-
-                  //Nút đăng nhập
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -142,8 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor: Colors.white.withValues(alpha: 0.9),
                       ),
                       child: isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.black)
+                          ? const CircularProgressIndicator(color: Colors.black)
                           : Text(
                               'Đăng nhập',
                               style: GoogleFonts.poppins(

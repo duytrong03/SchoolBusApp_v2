@@ -1,4 +1,4 @@
-import 'package:pdm_app/features/hoc_sinh/model/hocsinh_model.dart';
+import 'package:pdm_app/features/admin/hoc_sinh/model/hocsinh_model.dart';
 
 class Lop {
   final int id;

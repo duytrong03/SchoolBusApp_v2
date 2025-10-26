@@ -6,7 +6,7 @@ class AuthService {
   final Dio _dio = ApiClient.dio;
 
   /// Login với username/password
-  /// Lưu token vào StorageService nếu login thành công
+  /// Lưu token + role vào StorageService nếu login thành công
   Future<bool> login(String username, String password) async {
     try {
       final response = await _dio.post(
@@ -18,13 +18,14 @@ class AuthService {
       );
 
       final data = response.data;
-      if (data != null && data['token'] != null) {
+      if (data != null && data['token'] != null && data['role'] != null) {
         await StorageService.saveToken(data['token']);
-        print('Login thành công, token lưu vào Storage');
+        await StorageService.saveRole(data['role']);
+        print('Login thành công, token + role đã lưu');
         return true;
       }
 
-      print('Login thất bại: token không có trong response');
+      print('Login thất bại: token hoặc role không có trong response');
       return false;
     } on DioException catch (e) {
       print('Login error: ${e.response?.data ?? e.message}');
@@ -32,7 +33,7 @@ class AuthService {
     }
   }
 
-  /// Logout: xóa token
+  /// Logout: xóa token + role
   Future<void> logout() async {
     try {
       // Nếu backend có endpoint logout, gọi ở đây
@@ -40,8 +41,8 @@ class AuthService {
     } catch (e) {
       print('Logout API error: $e');
     } finally {
-      await StorageService.clearToken();
-      print('Token đã xóa, logout thành công');
+      await StorageService.clearAll();
+      print('Token + role đã xóa, logout thành công');
     }
   }
 
@@ -52,6 +53,15 @@ class AuthService {
       print('Token chưa tồn tại, chưa login');
     }
     return t;
+  }
+
+  /// Lấy role hiện tại từ StorageService
+  static Future<String?> get role async {
+    final r = await StorageService.getRole();
+    if (r == null) {
+      print('Role chưa tồn tại, chưa login');
+    }
+    return r;
   }
 
   /// Kiểm tra đã login chưa

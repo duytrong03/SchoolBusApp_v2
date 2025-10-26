@@ -19,7 +19,17 @@ var builder = WebApplication.CreateBuilder();
 GlobalConfiguration
     .Setup()
     .UsePostgreSql();
-    
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    // Lắng nghe trên tất cả IP (0.0.0.0)
+    options.ListenAnyIP(5134, listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+    });
+    // Nếu muốn hỗ trợ HTTPS, bạn có thể thêm dòng này:
+    // options.ListenAnyIP(7136, listenOptions => listenOptions.UseHttps());
+});
 builder.Services.AddScoped<IDbFactory, DbFactory>();
 // builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

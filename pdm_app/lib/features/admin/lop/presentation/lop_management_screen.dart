@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pdm_app/features/lop/data/lop_service.dart';
-import 'package:pdm_app/features/lop/model/lop_model.dart';
+import 'package:pdm_app/features/admin/lop/data/lop_service.dart';
+import 'package:pdm_app/features/admin/lop/model/lop_model.dart';
 
 class LopManagementScreen extends StatefulWidget {
   const LopManagementScreen({super.key});

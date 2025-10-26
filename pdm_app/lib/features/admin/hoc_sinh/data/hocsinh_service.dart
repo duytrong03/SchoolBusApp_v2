@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:pdm_app/core/utils/storage_service.dart';
-import 'package:pdm_app/features/hoc_sinh/model/hocsinh_model.dart';
+import 'package:pdm_app/features/admin/hoc_sinh/model/hocsinh_model.dart';
 
 class HocsinhService {
   final String baseUrl = '${dotenv.env['API_BASE_URL']}api/hoc-sinh';

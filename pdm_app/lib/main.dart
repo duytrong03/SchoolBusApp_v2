@@ -33,14 +33,12 @@ Future<String> _determineBaseUrl() async {
     final deviceInfo = DeviceInfoPlugin();
     final androidInfo = await deviceInfo.androidInfo;
 
-    // Nếu là máy ảo => dùng EMULATOR
     if (androidInfo.isPhysicalDevice == false) {
+      // Emulator
       return dotenv.env['API_BASE_URL_EMULATOR'] ?? '';
     } else {
-      // Nếu là thiết bị thật => tự động lấy IP LAN
-      final ip = await _getLocalIp();
-      debugPrint('Detected LAN IP: $ip');
-      return 'http://$ip:5134/'; // sửa port nếu API bạn dùng khác
+      // Thiết bị thật - thay vì dò IP máy điện thoại, dùng IP máy BE
+      return dotenv.env['API_BASE_URL_LOCAL'] ?? '';
     }
   }
 

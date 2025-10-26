@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pdm_app/features/taixe/data/taixe_service.dart';
-import 'package:pdm_app/features/taixe/model/create_driver_model.dart';
+import 'package:pdm_app/features/admin/taixe/data/taixe_service.dart';
+import 'package:pdm_app/features/admin/taixe/model/create_driver_model.dart';
 
 class CreateDriverAccountScreen extends StatefulWidget {
   const CreateDriverAccountScreen({super.key});

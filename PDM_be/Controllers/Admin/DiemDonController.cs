@@ -9,34 +9,33 @@ using PDM_be.Infrastructure.Abstractions;
 using PDM_be.Infrastructure.DTO.Response;
 using PDM_be.Infrastructure.Interfaces;
 using PDM_be.Models.Public;
-using PDM_be.Repositories;
 using PDM_be.Repositories.Interfaces;
 using PDM_be.ViewModels.DTO;
 
 namespace PDM_be.Controllers
 {
     [ApiController]
-    [Authorize(Roles = RoleEnum.ADMIN)]
-    [Route("api/tuyen-xe")]
-    public class TuyenXeController : BaseApiCRUDController<DbSession,TuyenXe, int>
+    [Route("api/diem-don")]
+    
+    public class DiemDonController : BaseApiCRUDController<DbSession,DiemDon, int>
     {
-        private readonly ITuyenXeRepository _tuyenXeRepository;
-        public TuyenXeController(IDbFactory dbFactory, ITuyenXeRepository repository)
+        private readonly IDbFactory _dbFactory;
+        public DiemDonController(IDbFactory dbFactory, IRepository<DiemDon, int> repository)
         : base(dbFactory, repository)
         {
-            _tuyenXeRepository = repository;
+            _dbFactory = dbFactory;
         }
-
+        
         [HttpPost("datatable")]
         public async Task<IActionResult> DatatableAsync([FromBody] TableParameters dataTb)
         {
             using var session = OpenSession();
             string condition = $"(1=1)";
-            string tableAlias = typeof(TuyenXe).Name.ToLower();
+            string tableAlias = typeof(DiemDon).Name.ToLower();
             string order = $" 1 ASC";
-            List<TuyenXe> data;
+            List<DiemDon> data;
 
-            var recordsTotal = await session.Connection.CountAsync<TuyenXe>(stm => stm
+            var recordsTotal = await session.Connection.CountAsync<DiemDon>(stm => stm
                 .WithAlias(tableAlias).Where($"{condition}")
                 .WithParameters(dataTb));
 
@@ -47,7 +46,7 @@ namespace PDM_be.Controllers
 
             if (dataTb != null && dataTb.orders != null && dataTb.orders.Count() > 0)
             {
-                var tableName = RepoDBHepler.OnlyTableName<TuyenXe>();
+                var tableName = RepoDBHepler.OnlyTableName<DiemDon>();
                 var existFields = session.Connection.QueryFirstOrDefault<int>(
                     $"select COUNT(1) from information_schema.columns WHERE table_name = @tableName AND column_name = ANY(@sortFields)",
                     new
@@ -69,9 +68,8 @@ namespace PDM_be.Controllers
 
             if (dataTb?.length == -1)
             {
-                data = (await session.Connection.FindAsync<TuyenXe>(stm => stm
-                    .Include<Taixe>(x => x.LeftOuterJoin())
-                    .Include<Xe>(x => x.LeftOuterJoin())
+                data = (await session.Connection.FindAsync<DiemDon>(stm => stm
+                    .Include<TuyenXe>(x => x.LeftOuterJoin())
                     .WithAlias(tableAlias)
                     .Where($"{condition}")
                     .WithParameters(withParams)
@@ -80,13 +78,12 @@ namespace PDM_be.Controllers
             }
             else if (dataTb?.length == 0)
             {
-                data = new List<TuyenXe>();
+                data = new List<DiemDon>();
             }
             else
             {
-                data = (await session.Connection.FindAsync<TuyenXe>(stm => stm
-                    .Include<Taixe>(x => x.LeftOuterJoin())
-                    .Include<Xe>(x => x.LeftOuterJoin())
+                data = (await session.Connection.FindAsync<DiemDon>(stm => stm
+                    .Include<TuyenXe>(x => x.LeftOuterJoin())
                     .WithAlias(tableAlias)
                     .Where($"{condition}")
                     .WithParameters(withParams)
@@ -96,10 +93,10 @@ namespace PDM_be.Controllers
                 ).ToList();
             }
 
-            return Ok(new RestPagedDataTable<IEnumerable<TuyenXe>>
+            return Ok(new RestPagedDataTable<IEnumerable<DiemDon>>
             {
                 data = data,
-                recordsFiltered = await session.Connection.CountAsync<TuyenXe>(stm => stm
+                recordsFiltered = await session.Connection.CountAsync<DiemDon>(stm => stm
                     .WithAlias(tableAlias)
                     .Where($"{condition}")
                     .WithParameters(withParams)
@@ -108,7 +105,5 @@ namespace PDM_be.Controllers
                 draw = dataTb?.draw ?? 1
             });
         }
-        
-
     }
 }
